@@ -1,0 +1,23 @@
+header, footer{
+    padding:  20px;
+    background-color: #33c3f0;
+}
+header{
+    text-align: center;
+    font-size: large;
+    margin-bottom: 20px;
+}
+footer{
+    text-align: right;
+    margin-top: 20px;
+}
+.menu{
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+.container{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+

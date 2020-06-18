@@ -1,0 +1,32 @@
+{% extends 'base.html' %}  #instruccion que dice que region es una extension de base.html
+
+{%block titulo%}
+My Crypto
+{% endblock%}
+
+{% block contenido %}
+
+    <h1>Mi Patrimonio</h1>
+    <h3>Resumen</h3>
+    <table class= 'u-full-width'>
+        <tr>
+            <th>Criptomoneda</th>
+            <th>Cantidad</th>
+            <th>Valor</th>
+        </tr>
+
+        {% for operacion in operaciones %}
+        <tr>
+            <td> <a href="/detalle?id={{operacion}}">{{operacion[0]}}></a></td>
+            <td> {{operacion[1]}} €</td>
+            <td> {{operacion[2]}} €</td>
+        </tr>
+        {% endfor %}
+        
+       
+    </table>
+    <div style="text-align: right;">
+        <a class= 'button button-primary' href="/">Operar</a>
+    </div>
+    {% endblock %}
+ 
