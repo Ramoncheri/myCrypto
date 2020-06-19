@@ -5,29 +5,29 @@ Detalle
 {% endblock%}
 
 {% block contenido %}
-    {% for crypto in op_crypto %}   
-        <h1>Detalle de Operaciones</h1>
-        <h2>Operaciones de {{crypto[6]}} </h2>
-        <table class= 'u-full-width'>
-            <tr>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Operación</th>
-                <th>Cantidad</th>
-                <th>Cotización</th>
-                <th>Importe</th>
-            </tr>
-            
-            <tr>
-                <td>{{crypto[0]}}</td>
-                <td>{{crypto[1]}}</td>
-                <td>{{crypto[2]}}</td>
-                <td>{{crypto[3]}}</td>
-                <td>{{crypto[4]}} €</td>
-                <td>{{crypto[5]}} €</td>
-            </tr>
-        {% endfor %}
-       
+    <h1>Detalle de Operaciones</h1>
+     
+    <h3>Operaciones de {{cryptoM}} </h3>
+    <table class= 'u-full-width'>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Operación</th>
+            <th>Volumen</th>
+            <th>Cotización</th>
+            <th>Importe</th>
+        </tr>
+        {% for crypto in op_crypto %}
+        <tr>
+            <td>{{crypto[0]}}</td>
+            <td>{{crypto[1]}}</td>
+            <td>{{crypto[2]}}</td>
+            <td>{{crypto[3]}}</td>
+            <td>{{crypto[4]}} €</td>
+            <td>{{crypto[5]}} €</td>
+        </tr>
+    {% endfor %}
+    
     </table>
     
     <a class= 'button button-primary' href="/">Volver</a>

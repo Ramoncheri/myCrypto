@@ -12,25 +12,30 @@ def index():
     operaciones= c.execute(query).fetchall()
     
     conn.close()
+
+    if operaciones:
     
-    d={}
-    k=d.keys()
-    for fila in operaciones:
-        if (fila[1]) in k:
-            if fila[4]=='Compra':
-                d[fila[1]]['volumen'] += float(fila[2])
-                d[fila[1]]['importe'] += float(fila[3])
+        d={}
+        k=d.keys()
+        for fila in operaciones:
+            if (fila[1]) in k:
+                if fila[4]=='Compra':
+                    d[fila[1]]['volumen'] += (fila[2])
+                    d[fila[1]]['importe'] += (fila[3])
+                else:
+                    d[fila[1]]['volumen'] -= (fila[2])
+                    d[fila[1]]['importe'] -= (fila[3])
             else:
-                d[fila[1]]['volumen'] -= float(fila[2])
-                d[fila[1]]['importe'] -= float(fila[3])
-        else:
-            d[fila[1]]= {'volumen': float(fila[2]), 'importe': float(fila[3])}
-            
-    
-    return render_template('inicio.html', ops= d)
+                d[fila[1]]= {'volumen': (fila[2]), 'importe':(fila[3])}
+                
+        
+        return render_template('inicio.html', ops= d)
+
+    else: 
+        return render_template('sin_movimientos.html')
 
 
-@app.route('/detalle', methods=["GET", "POST"])
+@app.route('/detalle', methods=["GET"])
 
 def detalle_ops():
     if request.method== 'GET':
@@ -45,7 +50,17 @@ def detalle_ops():
     
 
     
-    return render_template('detalle.html', titulo= 'My Crypto', op_crypto= op_crypto)
+    return render_template('detalle.html', titulo= 'My Crypto', op_crypto= op_crypto, cryptoM=cryptoM)
+
+
+@app.route('/operar')
+def operar():
+    return 'Aqui va el formulario de operar'
+
+
+@app.route('/status')
+def status():
+    return 'Aqui va la pagina de estado de las inversiones'
 
 
 
