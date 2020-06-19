@@ -1,7 +1,7 @@
 {% extends 'base.html' %}  #instruccion que dice que region es una extension de base.html
 
 {%block titulo%}
-My Crypto
+Mi Patrimonio
 {% endblock%}
 
 {% block contenido %}
@@ -10,16 +10,16 @@ My Crypto
     <h3>Resumen</h3>
     <table class= 'u-full-width'>
         <tr>
-            <th>Criptomoneda</th>
-            <th>Cantidad</th>
-            <th>Valor</th>
+            <th>Criptomonedassss</th>
+            <th>Volumen</th>
+            <th>Importe</th>
         </tr>
 
-        {% for operacion in operaciones %}
+        {% for operacion, data in ops.items() %}
         <tr>
-            <td> <a href="/detalle?id={{operacion}}">{{operacion[0]}}></a></td>
-            <td> {{operacion[1]}} €</td>
-            <td> {{operacion[2]}} €</td>
+            <td><a href="/detalle?id={{operacion}}"> {{operacion}}</a> </td>
+            <td> {{data.volumen}} </td>
+            <td> {{data.importe}} €</td>
         </tr>
         {% endfor %}
         
