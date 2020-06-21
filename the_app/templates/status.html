@@ -6,28 +6,43 @@ Mi Patrimonio
 
 {% block contenido %}
 
-    <h1>Mi Patrimonio</h1>
-    <h3>Resumen</h3>
+    <h1>Estado de la inversión</h1>
+    <h4>Invertido</h4>
     <table class= 'u-full-width'>
         <tr>
             <th>Criptomoneda</th>
             <th>Volumen</th>
-            <th>Valor actual**</th>
+            <th>Cotización de compra</th>
+            <th>Importe de compra</th>
+            <th>Cotización actual</th>
+            <th>Valor actual</th>
         </tr>
 
+        
         {% for operacion, data in ops.items() %}
         <tr>
             <td><a href="/detalle?id={{operacion}}"> {{operacion}}</a> </td>
             <td> {{data.volumen}} </td>
-            <td> Enlace a cotizacion €</td>
+            <td> {{data.cotizacion}} €</td>
+            <td> {{data.volumen* data.cotizacion}} € </td>
+            <td>**Enlace</td>
+            <td> data.volumen*cotizacion €</td>
         </tr>
-        {% endfor %}
-        
+        {% endfor %}       
        
     </table>
+
+    <table>
+        <th>Total</th>
+        
+
+
+    </table>
+
+
+
     <div style="text-align: right;">
         <a class= 'button button-primary' href="/operar">Operar</a>
-        <a class= 'button button-primary' href="/status">Status</a>
+        <a class= 'button button-primary' href="/">Inicio</a>
     </div>
     {% endblock %}
- 
