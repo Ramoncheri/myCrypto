@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Compra de Criptos {% endblock %}
+
+{% block contenido %}
+    <h1>Operación de Compra </h1>
+
+    <form class= "u-full-width" action="/altaProducto" method="post">
+
+        {{form.submit(class="button-primary")}}
+    
+    </form>
+
+
+{% endblock%}

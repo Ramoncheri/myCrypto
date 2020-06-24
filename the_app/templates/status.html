@@ -9,35 +9,49 @@ Mi Patrimonio
     <h1>Estado de la inversión</h1>
     <h4>Invertido</h4>
     <table class= 'u-full-width'>
-        <tr>
-            <th>Criptomoneda</th>
-            <th>Volumen</th>
-            <th>Cotización de compra</th>
-            <th>Importe de compra</th>
-            <th>Cotización actual</th>
-            <th>Valor actual</th>
-        </tr>
-
         
-        {% for operacion, data in ops.items() %}
-        <tr>
-            <td><a href="/detalle?id={{operacion}}"> {{operacion}}</a> </td>
-            <td> {{data.volumen}} </td>
-            <td> {{data.cotizacion}} €</td>
-            <td> {{data.volumen* data.cotizacion}} € </td>
-            <td>**Enlace</td>
-            <td> data.volumen*cotizacion €</td>
-        </tr>
-        {% endfor %}       
+        <thead>
+            <tr>
+                <th>Criptomoneda</th>
+                <th>Volumen</th>
+                <th>Cotización de compra</th>
+                <th>Importe de compra</th>
+                <th>Cotización actual</th>
+                <th>Valor actual</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        
+            {% for operacion, data in ops.items() %}
+            <tr>
+                <td><a href="/detalle?id={{operacion}}"> {{operacion}}</a> </td>
+                <td> {{data.volumen}} </td>
+                <td> {{data.cotizacion | round(8, 'floor')}} €</td>
+                <td> {{data.importe | round(8, 'floor')}} € </td>
+                <td> {{data.cot_actual | round(8, 'floor')}} €</td>
+                <td> {{data.volumen*data.cot_actual | round(8, 'floor')}} €</td>
+            </tr>
+            {% endfor %}   
+        </tbody>  
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <b> Total</b> 
+                </td>
+                <td> {{suma_total| round(8, 'floor')}} €</td>
+                <td> </td>
+                <td> {{suma_total_act | round(8, 'floor')}} €</td>
+            </tr>
+            
+        </tfoot>  
        
     </table>
 
-    <table>
-        <th>Total</th>
         
 
 
-    </table>
+    
 
 
 
