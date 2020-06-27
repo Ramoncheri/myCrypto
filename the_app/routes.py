@@ -2,6 +2,8 @@ from the_app import app
 from the_app import api
 from flask import render_template, request
 import sqlite3
+from the_app.forms import CompraForm
+from the_app.functions import calc_fecha
 
 
 
@@ -66,13 +68,28 @@ def detalle_ops():
 @app.route('/operar', methods=["GET", "POST"])
 def operar():
 
-    #form= CompraForm(request.form)  
+    form= CompraForm(request.form)  
 
     if request.method=='GET':
-        return render_template('formul_compra.html', form=form)
+        return render_template('formul_compra.html', form= form)
     else:
-        return 'es un post confirmando la compra'
+        #if form.validate():
+        if request.values.get('submitField')== 'Calcular':
+            cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
+            cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
+            fecha= calc_fecha()
+            return render_template('formul_compra.html', cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha, form= form)
+        
+        else:
+            return 'se va por aqui'
 
+
+
+
+
+            
+        #else: 
+            #return render_template('formul_compra.html', form= form)
 
 @app.route('/status')
 def status():

@@ -2,17 +2,18 @@ from requests import Request, Session
 import json
 from the_app import app
 
-def convert(symbol_from):
+def convert(symbol_from, amount='1', converTo='EUR'):
     url= 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion?'
 
     parameters = {
-    'amount': '1',
+    'amount': amount,
     'symbol': symbol_from,
-    'convert': 'EUR'
+    'convert': converTo,
     }
+
     headers = {
     'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': app.config['SECRET_KEY'],
+    'X-CMC_PRO_API_KEY': app.config['API_KEY'],
     }
 
     session = Session()
@@ -23,7 +24,7 @@ def convert(symbol_from):
     data = response.json()
     lista= (data['data'])
     quote= lista['quote']
-    price= quote['EUR']['price']
+    price= quote[converTo]['price']
     print( price)
     return price
     

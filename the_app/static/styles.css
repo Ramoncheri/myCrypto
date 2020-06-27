@@ -11,12 +11,25 @@ footer{
     text-align: right;
     margin-top: 20px;
 }
-.menu{
-    padding-top: 10px;
-    padding-bottom: 30px;
+body{
+    background-color: #EAEAEA;
 }
 .container{
     font-family: Arial, Helvetica, sans-serif;
+}
+.sin_movs{
+    margin: 2cm;
+    padding: 2cm;
+}
+
+.boton{
+    background-color: whitesmoke;
+}
+
+.box{
+    box-sizing: border-box;
+    padding: 100px;
+    border: 1px;
 }
 
 

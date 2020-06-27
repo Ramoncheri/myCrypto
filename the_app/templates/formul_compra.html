@@ -3,13 +3,137 @@
 {% block titulo %} Compra de Criptos {% endblock %}
 
 {% block contenido %}
-    <h1>Operación de Compra </h1>
+    <h3 style="margin: 30px;">Operación de Compra </h3>
 
-    <form class= "u-full-width" action="/altaProducto" method="post">
+    <form  action="/operar" method="post">
+        {{form.hidden_tag()}}
 
-        {{form.submit(class="button-primary")}}
+        <div class= "row" style="margin: 20px;"  style="width: auto;">
+            <div class="six columns">
+            {{form.criptoFrom.label}}
+                {{form.criptoFrom}}
+            </div>
+            <div class="six columns">
+            {{form.criptoTo.label}}
+                {{form.criptoTo}}
+            </div>
+        </div>
+        <div class= "row" style="margin: 20px;", style="width: auto;">
+            <div class="six columns">
+            {{form.cantidadFrom.label}}
+                {{form.cantidadFrom}} 
+                {{form.submitField (class="boton")}}
+                
+            </div>
+            <div class="six columns">
+                <label for="cantidadTo">Cantidad: </label>
+                <input type="text", value="{{cantidadTo | round(8, 'floor')}}", readonly>
+                
+            </div>
+        </div>
+
+        <div class= "row" style="margin: 20px;">
+
+            <div class="six columns">
+                <input type="text", name="fecha", value="{{fecha}}">           
+            </div>
+                
+            <div class= "six columns", style="margin-bottom: 1cm;">
+                <label for="cotizacion">Cotización: </label>
+                <input type="text", value="{{cotiz | round(8, 'floor')}}", readonly>
+            </div>
+
+            <div class="row" style="margin-bottom: 50px;", style="margin-top: 1cm;">
+                <div class= "eight colums" style="text-align: center;">
+                    <button class= "boton" type="button">Cancelar</button>
+                    <button class= "boton" type="button">Comprar</button>
+                </div>
+            </div>
+                
+            
     
     </form>
-
-
+    
+    <div style="text-align: right;" style="margin: 100px;">
+            <a class= 'button button-primary' href="/status">Status</a>
+            <a class= 'button button-primary' href="/">Inicio</a>
+    </div>
+    
+    
 {% endblock%}
+
+
+
+
+
+
+
+
+
+            <!--div class="six columns">
+            {{form.cantidadTo.label}}  
+                {{form.cantidadTo ( readonly=true)}}
+            </div>
+        </div>
+        <div class= "row" style="margin: 20px;" style="width: auto;">
+            <div class="six columns" >
+            {{form.fechaHora.label}}
+                {{form.fechaHora (readonly= true)}}
+            </div>
+            <div class="six columns">
+            {{form.cotizacion.label}}
+                {{form.cotizacion  (readonly=true) }}
+            </div>
+        </div>
+            <div class= "six columns">
+                <label for="criptomonedaFrom">From: </label>
+         
+                <select name="criptomonedaFrom">
+                    <option>   </option>
+                    <option>EUR</option>
+                    <option>BTC</option>
+                    <option>ETH</option>
+                    <option>LTC</option>
+
+                </select>
+            </div>
+            <div class= "six columns">
+                <label for="criptomonedaTo">To: </label>
+         
+                <select name="criptomonedaTo">
+                    <option>   </option>
+                    <option>EUR</option>
+                    <option>BTC</option>
+                    <option>ETH</option>
+                    <option>LTC</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div class= "row" style="margin: 20px;">
+            <div class= "six columns">
+                <label for="cantidadFrom">Cantidad: </label>
+        
+                <input type="text" name= "cantidadFrom" placeholder="Cantidad">
+                <input type="submit" class="boton" value="Calcular">
+            </div>
+            <div class="six columns">
+                <label for="cantidadTo">Cantidad: </label>
+                <input type="text" name="cantidadTo" readonly>
+            </div>
+        </div>
+
+        <div class= "row" style="margin: 20px;">
+
+            <div class="six columns">
+                <input type="datetime-local", name="fecha" autocomplete="on" >
+
+            </div>
+                
+            <div class= "six columns">
+                <label for="cotizacion">Cotización: </label>
+                <input type="text" name="cotizacion" readonly>
+            </div>
+        </div-->
+       
