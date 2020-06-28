@@ -1,6 +1,6 @@
 from the_app import app
 from the_app import api
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 import sqlite3
 from the_app.forms import CompraForm
 from the_app.functions import calc_fecha
@@ -73,23 +73,18 @@ def operar():
     if request.method=='GET':
         return render_template('formul_compra.html', form= form)
     else:
-        #if form.validate():
-        if request.values.get('submitField')== 'Calcular':
+        if request.values.get('calcular'):
             cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
             cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
             fecha= calc_fecha()
             return render_template('formul_compra.html', cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha, form= form)
         
+        elif request.values.get('cancelar'):
+            
+            return redirect(url_for("operar"))
         else:
             return 'se va por aqui'
-
-
-
-
-
-            
-        #else: 
-            #return render_template('formul_compra.html', form= form)
+        
 
 @app.route('/status')
 def status():

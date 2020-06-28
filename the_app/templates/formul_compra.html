@@ -22,12 +22,12 @@
             <div class="six columns">
             {{form.cantidadFrom.label}}
                 {{form.cantidadFrom}} 
-                {{form.submitField (class="boton")}}
+                {{form.calcular (class="boton")}}
                 
             </div>
             <div class="six columns">
                 <label for="cantidadTo">Cantidad: </label>
-                <input type="text", value="{{cantidadTo | round(8, 'floor')}}", readonly>
+                <input type="text", value="{{cantidadTo}}", readonly>
                 
             </div>
         </div>
@@ -40,16 +40,18 @@
                 
             <div class= "six columns", style="margin-bottom: 1cm;">
                 <label for="cotizacion">Cotización: </label>
-                <input type="text", value="{{cotiz | round(8, 'floor')}}", readonly>
+                <input type="text", value="{{cotiz}}", readonly>
             </div>
 
             <div class="row" style="margin-bottom: 50px;", style="margin-top: 1cm;">
                 <div class= "eight colums" style="text-align: center;">
-                    <button class= "boton" type="button">Cancelar</button>
-                    <button class= "boton" type="button">Comprar</button>
+                    {{form.cancelar (class="boton")}}
+                    {{form.comprar (class="boton")}}
+                      
+                    
                 </div>
             </div>
-                
+        </div>
             
     
     </form>
