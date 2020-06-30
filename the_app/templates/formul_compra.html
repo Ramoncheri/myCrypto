@@ -27,7 +27,7 @@
             </div>
             <div class="six columns">
                 <label for="cantidadTo">Cantidad: </label>
-                <input type="text", value="{{cantidadTo}}", readonly>
+                <input type="text", name="cantidadTo", value="{{cantidadTo}}" readonly>
                 
             </div>
         </div>
@@ -40,19 +40,34 @@
                 
             <div class= "six columns", style="margin-bottom: 1cm;">
                 <label for="cotizacion">Cotización: </label>
-                <input type="text", value="{{cotiz}}", readonly>
+                <input type="text", name="cotiz", value="{{cotiz}}" readonly>
             </div>
 
             <div class="row" style="margin-bottom: 50px;", style="margin-top: 1cm;">
                 <div class= "eight colums" style="text-align: center;">
                     {{form.cancelar (class="boton")}}
                     {{form.comprar (class="boton")}}
+                    
+                    <!--a href="#popup">Comprar</a>
+                    <div class="popup" id="popup">Confirmar operación
+                        <span class="popuptext" id="popuptext">
+                            
+                          <p> Va a realizar una operación de compra.<br>
+                            Para confirmarla, presione 'Confirmar'<br>
+                            Para cancelarla, presione 'Cancelar'</p>
+
+                        <button href="/operar">Confirmar</button>
+                        <div class="cerrar">
+                        <button href="#">Cancelar</button>
+                        </div>
+                        </span>
+                
+                    </div-->
                       
                     
                 </div>
             </div>
-        </div>
-            
+        </div>   
     
     </form>
     
@@ -60,6 +75,9 @@
             <a class= 'button button-primary' href="/status">Status</a>
             <a class= 'button button-primary' href="/">Inicio</a>
     </div>
+
+    
+    
     
     
 {% endblock%}

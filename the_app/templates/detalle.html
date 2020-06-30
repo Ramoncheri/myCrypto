@@ -11,20 +11,21 @@ Detalle
     <table class= 'u-full-width'>
         <tr>
             <th>Fecha</th>
-            <th>Hora</th>
-            <th>Operación</th>
+            <th>De</th>
             <th>Volumen</th>
+            <th>A</th>
             <th>Cotización</th>
             <th>Importe</th>
         </tr>
         {% for crypto in op_crypto %}
         <tr>
             <td>{{crypto[0]}}</td>
-            <td>{{crypto[1]}}</td>
-            <td>{{crypto[2]}}</td>
-            <td>{{crypto[3]}}</td>
-            <td>{{crypto[4]}} €</td>
-            <td>{{crypto[5]}} €</td>
+            <td>{{crypto[5]}}</td>
+            <td>{{crypto[1] | round(8)}}</td>
+            <td>{{crypto[4]}}</td>
+            <td>{{crypto[2] | round(8)}}</td>
+            <td>{{crypto[3] | round(8)}} {{crypto[4]}}</td>
+            
         </tr>
     {% endfor %}
     

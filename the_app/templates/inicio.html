@@ -16,11 +16,15 @@ Mi Patrimonio
         </tr>
 
         {% for operacion, data in ops.items() %}
-        <tr>
-            <td><a href="/detalle?id={{operacion}}"> {{operacion}}</a> </td>
-            <td> {{data.volumen}} </td>
-            <td> {{data.volumen*data.importe | round(8, 'floor')}}  €</td>
-        </tr>
+            {% if operacion != 'EUR' %}
+                
+                <tr>
+                    <td><a href="/detalle?id={{operacion}}"> {{operacion}}</a> </td>
+                    <td> {{data.volumen | round(8)}} </td>
+                    <td> {{(data.volumen*data.importe) | round(8)}}  €</td>
+                </tr>
+
+            {% endif%}
         {% endfor %}
         
        
