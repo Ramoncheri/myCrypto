@@ -15,7 +15,7 @@ Mi Patrimonio
                 {% if operacion== 'EUR' %}
                     <tr>
                         <th colspan="3" style="text-align: left;">Valor invertido</th>
-                        <td> {{data.volumen |round(2)}} €</td>
+                        <td> {{(-1*data.volumen) |round(2)}} €</td>
                     </tr>
                 {% endif %}
             {% endfor %}

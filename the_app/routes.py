@@ -9,14 +9,14 @@ from the_app.functions import calc_fecha, select
 
 @app.route('/')
 def index():
-
+    
     d=select()
     if d:
         return render_template('inicio.html', ops= d)
 
     else: 
         return render_template('sin_movimientos.html')
-
+   
 
 @app.route('/detalle')
 
@@ -28,12 +28,11 @@ def detalle_ops():
     
     query= "SELECT fecha, volumen, cotizacion, importe, a_cripto, de_cripto FROM resumen WHERE a_cripto=? or de_cripto=?"
     datos=((cryptoM), (cryptoM))
+    
     op_crypto= c.execute(query,datos).fetchall()
-    
-    conn.close()
-    
 
-    
+    conn.close()
+
     return render_template('detalle.html', op_crypto= op_crypto, cryptoM=cryptoM)
 
 
@@ -70,54 +69,22 @@ def operar():
             c= conn.cursor()
             query= "INSERT INTO resumen(fecha, de_cripto, volumen, a_cripto, cotizacion, importe) values (?,?,?,?,?,?);"
             datos= (request.values.get('fecha'), request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'), request.values.get('cotiz'), request.values.get('cantidadTo'))
-            c.execute(query, datos)
-
-            conn.commit()
+            
+            try:
+                c.execute(query, datos)
+                conn.commit()
+            except Exception as e:
+                print('MOD/DEL- Error de acceso a la base de datos: {}'.format(e))
+                return 'Error de acceso a la base de datos'
             conn.close()
 
             return redirect(url_for('index'))
         
 
 
-
-
-
 @app.route('/status')
 def status():
-    conn= sqlite3.connect(app.config['BBDD'])
-    c= conn.cursor()
-
-    query= "SELECT id, de_cripto, volumen, importe, a_cripto FROM resumen;"
-    operaciones= c.execute(query).fetchall()
-    
-    conn.close()
-    
-    if operaciones:
-    
-        d={}
-        k=d.keys()
-        for fila in operaciones:
-            if fila[4] not in k:
-                d[fila[4]]= {'volumen': (fila[3])}
-                if fila[1] not in k:
-                    d[fila[1]]={'volumen': -(fila[2])}
-                else: 
-                    d[fila[1]]['volumen'] -= fila[2]
-                
-            else:
-                d[fila[4]]['volumen'] += (fila[3])
-                if fila[1] not in k:
-                    d[fila[1]]={'volumen': -(fila[2])}
-                else: 
-                    d[fila[1]]['volumen'] -= fila[2]
-            
-        
-        
-        for symbol in k:
-            symbol_from=symbol
-            cotiz= api.convert(symbol_from)
-            d[symbol_from]['importe']= cotiz
-    
+    d= select()
 
     suma_total_act= 0
     for fila in d.items():

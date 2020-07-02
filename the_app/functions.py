@@ -15,9 +15,12 @@ def select():
     c= conn.cursor()
 
     query= "SELECT id, de_cripto, volumen,importe, a_cripto FROM resumen;"
+
+
     operaciones= c.execute(query).fetchall()
     
     conn.close()
+    
 
     if operaciones:
     
