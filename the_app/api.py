@@ -25,7 +25,7 @@ def convert(symbol_from, amount='1', converTo='EUR'):
     lista= (data['data'])
     quote= lista['quote']
     price= quote[converTo]['price']
-    print( price)
+
     return price
     
 

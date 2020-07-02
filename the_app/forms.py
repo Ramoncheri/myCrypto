@@ -1,24 +1,39 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, SubmitField, SelectField, DateTimeField
-from wtforms.validators import DataRequired, EqualTo, ValidationError
+from wtforms.validators import DataRequired, ValidationError
+from the_app.functions import select
 
 
-def valida_posibilidad_compra(form, field):
-    if field.data ==form.Moneda_from.data:
-        raise ValidationError("No es posible realizar ningún intercambio entre monedas iguales")
-    elif field.data != "BTC" and form.Moneda_from.data == "EUR": 
-        raise ValidationError("No es posible intercambiar EUR, por {} directamente. Sólo puede adquirir {}, con otras criptomonedas.".format(field.data,field.data ))
-    elif field.data == "EUR" and form.Moneda_from.data != "BTC":
-        raise ValidationError("No es posible cambiar {} por EUR, directamente. Sólo es posible intercambiar BTC por EUR. Si desea EUR, por favor, intercambie  antes sus {} a BTC y vuelva a intentarlo.".format(form.Moneda_from.data, form.Moneda_from.data))
+def compra_errors(form, field):
+    if field.data ==form.criptoFrom.data:
+        raise ValidationError("No es posible operar entre el mismo tipo de moneda")
+    elif field.data != "BTC" and form.criptoFrom.data == "EUR": 
+        raise ValidationError("Solo son posibles las operaciones de cambio de EUR con BTC")
+    elif field.data == "EUR" and form.criptoFrom.data != "BTC":
+        raise ValidationError("Solo son posibles las operaciones de cambio de EUR con BTC")
+
+def valid_cantidadFrom(form, field):
+    ops= select()
+    for operacion, data in ops.items():
+        if operacion != 'EUR' and form.criptoFrom.data == operacion:
+            if field.data > data['volumen']:
+                raise ValidationError('No dispone de saldo suficiente para realizar la operación')
+
+
+def criptosFrom():
+    d= select()
+    criptosFrom= d.keys()
+    return criptosFrom
 
 
 
-criptos = ("","EUR", "BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
+criptosFrom= criptosFrom()
+criptosTo = ("","EUR", "BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
 
 class CompraForm(FlaskForm):
-    criptoFrom= SelectField(u'From ', choices= [(cripto) for cripto in criptos], validators=[EqualTo('criptoTo', message="No puede ser igual a la moneda comprada")])
-    criptoTo= SelectField(u'To ', choices=[(cripto) for cripto in criptos], validators=[valida_posibilidad_compra])
-    cantidadFrom= FloatField('Cantidad', validators=[DataRequired(message='Campo requerido')])
+    criptoFrom= SelectField('From', choices= [(cripto, cripto) for cripto in criptosFrom])
+    criptoTo= SelectField('To', choices=[(cripto, cripto) for cripto in criptosTo], validators=[compra_errors])
+    cantidadFrom= FloatField('Cantidad', validators=[DataRequired( message='Campo requerido'), valid_cantidadFrom])
     calcular= SubmitField('Calcular')
 
     cancelar= SubmitField('Cancelar')

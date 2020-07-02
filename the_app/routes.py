@@ -3,46 +3,15 @@ from the_app import api
 from flask import render_template, request, redirect, url_for
 import sqlite3
 from the_app.forms import CompraForm
-from the_app.functions import calc_fecha
+from the_app.functions import calc_fecha, select
 
 
 
 @app.route('/')
 def index():
 
-    conn= sqlite3.connect(app.config['BBDD'])
-    c= conn.cursor()
-
-    query= "SELECT id, de_cripto, volumen,importe, a_cripto FROM resumen;"
-    operaciones= c.execute(query).fetchall()
-    
-    conn.close()
-
-    if operaciones:
-    
-        d={}
-        k=d.keys()
-        for fila in operaciones:
-            if fila[4] not in k:
-                d[fila[4]]= {'volumen': (fila[3])}
-                if fila[1] not in k:
-                    d[fila[1]]={'volumen': -(fila[2])}
-                else: 
-                    d[fila[1]]['volumen'] -= fila[2]
-                
-            else:
-                d[fila[4]]['volumen'] += (fila[3])
-                if fila[1] not in k:
-                    d[fila[1]]={'volumen': -(fila[2])}
-                else: 
-                    d[fila[1]]['volumen'] -= fila[2]
-                
-            
-        for symbol in k:
-            symbol_from=symbol
-            cotiz= api.convert(symbol_from)
-            d[symbol_from]['importe']= cotiz
-        
+    d=select()
+    if d:
         return render_template('inicio.html', ops= d)
 
     else: 
@@ -74,19 +43,25 @@ def operar():
     form= CompraForm(request.form)  
 
     if request.method=='GET':
+    
         return render_template('formul_compra.html', form= form)
 
     else:
-        if request.values.get('calcular'):
-            #comparar request.values.get(cantidadFrom) con la cantidad de cipto que tienes-->select
-            
-            cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
-            cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
-            fecha= calc_fecha()
-            return render_template('formul_compra.html', cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha, form= form)
         
+        if request.values.get('calcular'):
+
+            if form.validate():
+        
+                cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
+                cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
+                fecha= calc_fecha()
+                return render_template('formul_compra.html', form= form, cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha)
+
+            else:
+                return render_template('formul_compra.html', form= form)
+
         elif request.values.get('cancelar'):
-            
+        
             return redirect(url_for("operar"))
 
         else:
@@ -101,6 +76,7 @@ def operar():
             conn.close()
 
             return redirect(url_for('index'))
+        
 
 
 
