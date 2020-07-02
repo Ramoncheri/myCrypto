@@ -17,7 +17,7 @@ def valid_cantidadFrom(form, field):
     for operacion, data in ops.items():
         if operacion != 'EUR' and form.criptoFrom.data == operacion:
             if field.data > data['volumen']:
-                raise ValidationError('No dispone de saldo suficiente para realizar la operación')
+                raise ValidationError('Saldo insuficiente')
 
 
 def criptosFrom():

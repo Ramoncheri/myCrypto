@@ -16,23 +16,34 @@
             <div class="six columns">
             {{form.criptoTo.label}}
             {% if form.criptoTo.errors %}
-                {{form.criptoTo (class= 'u-full-width error')}}
-                {% for error in form.criptoTo.errors %}
-                    <p class="error-msg">{{ error }}</p>
-                {% endfor %}
+                {{form.criptoTo (class= 'error')}}
+                    {% for error in form.criptoTo.errors %}
+                        <p class="error-msg">{{ error }}</p>
+                    {% endfor %}
             {% else %}
-                {{form.criptoTo (class= 'six columns')}}
+                {{form.criptoTo}}
             {% endif %}
             </div>
         </div>
-        <div class= "row" style="margin: 20px;">
-            <div class="six columns">
+        <div class= "row" style="margin: 20px;", style="width: auto;">
+            <div class="three columns">
             {{form.cantidadFrom.label}}
-            {{form.cantidadFrom (class='six columns')}}
-            {{form.calcular (class="boton")}}
-            
-            
+            {% if form.cantidadFrom.errors %}
                 
+                {{form.cantidadFrom(class=' error')}}
+                {% for error in form.cantidadFrom.errors %}
+                    <p class="error-msg">{{ error }}</p>
+                {% endfor %}
+                
+            {% else %}
+                {{form.cantidadFrom}}
+
+            {% endif %}
+            </div>
+            <div class="three columns">
+                <label for="Calcular" style="opacity: 0;">A</label>
+                {{form.calcular (class="boton")}}
+              
             </div>
             <div class="six columns">
                 <label for="cantidadTo">Cantidad: </label>
@@ -40,16 +51,17 @@
                 
             </div>
         </div>
-        <div class="row", style="margin: 20px;">
+        <!--div class="row", style="margin: 20px;">
             {% if form.cantidadFrom.errors %}
-                
+
                 {% for error in form.cantidadFrom.errors %}
                     <p class="error-msg">{{ error }}</p><br>
                 {% endfor %}
-                
+
             {% endif %}
 
-        </div>
+        </div-->
+        
 
         <div class= "row" style="margin: 20px;">
 
