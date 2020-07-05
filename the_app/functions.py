@@ -2,6 +2,7 @@ from datetime import date, datetime
 from the_app import api
 import sqlite3
 from the_app import app
+from flask import render_template
 
 def calc_fecha():
     now=datetime.now()
@@ -21,10 +22,14 @@ def select():
     
     conn.close()
     
+    d={}
+    if operaciones== []:
+        d= {'EUR': 0}
+        return d
 
-    if operaciones:
-    
-        d={}
+        
+    else:
+        
         k=d.keys()
         for fila in operaciones:
             if fila[4] not in k:
@@ -47,4 +52,6 @@ def select():
             d[symbol_from]['importe']= cotiz
 
         return d
+
+        
     

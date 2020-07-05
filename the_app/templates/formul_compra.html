@@ -11,7 +11,11 @@
         <div class= "row" style="margin: 20px;"  style="width: auto;">
             <div class="six columns">
             {{form.criptoFrom.label}}
+            {% if form.criptoTo.errors %}
+                {{form.criptoFrom (class= 'error')}}
+            {% else %}
                 {{form.criptoFrom}}
+            {% endif %}
             </div>
             <div class="six columns">
             {{form.criptoTo.label}}
@@ -28,9 +32,8 @@
         <div class= "row" style="margin: 20px;", style="width: auto;">
             <div class="three columns">
             {{form.cantidadFrom.label}}
-            {% if form.cantidadFrom.errors %}
-                
-                {{form.cantidadFrom(class=' error')}}
+            {% if form.cantidadFrom.errors %}    
+                {{form.cantidadFrom (class= 'error')}}
                 {% for error in form.cantidadFrom.errors %}
                     <p class="error-msg">{{ error }}</p>
                 {% endfor %}
@@ -41,12 +44,12 @@
             {% endif %}
             </div>
             <div class="three columns">
-                <label for="Calcular" style="opacity: 0;">A</label>
+                <label style= "opacity: 0;">A</label>
                 {{form.calcular (class="boton")}}
-              
+                
             </div>
             <div class="six columns">
-                <label for="cantidadTo">Cantidad: </label>
+                <label for= "cantidadTo">Cantidad:</label> 
                 <input type="text", name="cantidadTo", value="{{cantidadTo}}" readonly placeholder="Autorellenable">
                 
             </div>
@@ -68,24 +71,8 @@
             <div class="row" style="margin-bottom: 50px;", style="margin-top: 1cm;">
                 <div class= "eight colums" style="text-align: center;">
                     {{form.cancelar (class="boton")}}
-                    {{form.comprar (class= "boton")}}
+                    {{form.comprar (class="boton")}} 
                     
-                    <!--a href="#popup">Comprar</a>
-                    <div class="popup" id="popup">Confirmar operación
-                        <span class="popuptext" id="popuptext">
-                            
-                          <p> Va a realizar una operación de compra.<br>
-                            Para confirmarla, presione 'Confirmar'<br>
-                            Para cancelarla, presione 'Cancelar'</p>
-
-                        <button href="/operar">Confirmar</button>
-                        <div class="cerrar">
-                        <button href="/">Cancelar</button>
-                        </div>
-                        </span>
-                
-                    </div-->
-                      
                     
                 </div>
             </div>

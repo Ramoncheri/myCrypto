@@ -11,11 +11,10 @@ from the_app.functions import calc_fecha, select
 def index():
     
     d=select()
-    if d:
-        return render_template('inicio.html', ops= d)
-
-    else: 
+    if len(d)==1:
         return render_template('sin_movimientos.html')
+    else: 
+        return render_template('inicio.html', ops= d)     
    
 
 @app.route('/detalle')
@@ -38,7 +37,7 @@ def detalle_ops():
 
 @app.route('/operar', methods=["GET", "POST"])
 def operar():
-
+    #boton_calc_presionado= False
     form= CompraForm(request.form)  
 
     if request.method=='GET':
@@ -48,23 +47,26 @@ def operar():
     else:
         
         if request.values.get('calcular'):
-
+            
             if form.validate():
         
                 cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
                 cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
                 fecha= calc_fecha()
+                #boton_calc_presionado= True
                 return render_template('formul_compra.html', form= form, cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha)
-
+                
             else:
                 return render_template('formul_compra.html', form= form)
+
+            
 
         elif request.values.get('cancelar'):
         
             return redirect(url_for("operar"))
 
         else:
-
+            #if boton_calc_presionado== True:
             conn=sqlite3.connect(app.config['BBDD'])
             c= conn.cursor()
             query= "INSERT INTO resumen(fecha, de_cripto, volumen, a_cripto, cotizacion, importe) values (?,?,?,?,?,?);"
@@ -77,10 +79,12 @@ def operar():
                 print('MOD/DEL- Error de acceso a la base de datos: {}'.format(e))
                 return 'Error de acceso a la base de datos'
             conn.close()
-
+            #boton_calc_presionado= False
             return redirect(url_for('index'))
+            #else:
+                #return redirect(url_for("operar"))
         
-
+            
 
 @app.route('/status')
 def status():

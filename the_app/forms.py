@@ -20,6 +20,7 @@ def valid_cantidadFrom(form, field):
                 raise ValidationError('Saldo insuficiente')
 
 
+
 def criptosFrom():
     d= select()
     criptosFrom= d.keys()

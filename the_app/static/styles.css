@@ -27,9 +27,18 @@ body{
     text-align: left;
     margin-top: -15px;
 }
-.boton{
-    background-color: whitesmoke;
+.error{
+    border-color: red;
+    border-width: 1px;
 }
+input.error{
+    border-color: red !important;
+    border-width: 1px;
+}
+.boton{
+    background-color: rgb(221, 220, 220) !important;
+}
+
 
 .popup{
     position: fixed;
@@ -39,7 +48,8 @@ body{
     left: 100;
     opacity: 0;
     pointer-events: none;
-    transition: all 1s;
+    transition: opacity 1s;
+    visibility: hidden;
     background-color: grey;
     width: 500px;
     height: 200px;
@@ -59,6 +69,13 @@ body{
 }
 #popup:target{
     opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
 }
 
+#cerrar-popup{
+    display: none;
+    position: absolute;
+    color: #fff;
+    cursor:pointer;
+    transition: 1s;
+}

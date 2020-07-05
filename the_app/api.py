@@ -9,7 +9,6 @@ def convert(symbol_from, amount='1', converTo='EUR'):
     url= 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount={}&symbol={}&convert={}&CMC_PRO_API_KEY={}'
     URL= url.format(amount, symbol_from,converTo, API_KEY )
     
-
     response = requests.get(URL)
     
 
@@ -19,6 +18,8 @@ def convert(symbol_from, amount='1', converTo='EUR'):
     price= quote[converTo]['price']
 
     return price
+   
+        
    
     
 
