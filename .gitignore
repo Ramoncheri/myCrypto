@@ -3,3 +3,5 @@ _config.py
 .env
 __pycache__
 .vscode
+data/inversion.db
+

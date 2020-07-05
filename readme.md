@@ -9,7 +9,7 @@
 
     Renombrar '_config_template.py' a '_config.py' e informar sus claves
 
-3. Para desarrollo: 
+3. Solo para desarrollo: 
     Renombrar '.env_template' a '.env' e informar las claves:
 
     -FLASK_APP=run.py
