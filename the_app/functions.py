@@ -51,7 +51,7 @@ def select():
             cotiz= api.convert(symbol_from)
             d[symbol_from]['importe']= cotiz
 
-        return d
+    return d
 
         
     

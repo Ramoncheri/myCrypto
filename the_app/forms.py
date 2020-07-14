@@ -21,19 +21,15 @@ def valid_cantidadFrom(form, field):
 
 
 
-def criptosFrom():
-    d= select()
-    criptosFrom= d.keys()
-    return criptosFrom
 
 
 
-criptosFrom= criptosFrom()
-criptosTo = ("","EUR", "BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
+
+criptos = ("", "EUR", "BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
 
 class CompraForm(FlaskForm):
-    criptoFrom= SelectField('From', choices= [(cripto, cripto) for cripto in criptosFrom])
-    criptoTo= SelectField('To', choices=[(cripto, cripto) for cripto in criptosTo], validators=[compra_errors])
+    criptoFrom= SelectField('From', choices= [( cripto, cripto) for cripto in criptos])
+    criptoTo= SelectField('To', choices=[(cripto, cripto) for cripto in criptos], validators=[compra_errors])
     cantidadFrom= FloatField('Cantidad', validators=[DataRequired( message='Campo requerido'), valid_cantidadFrom])
     calcular= SubmitField('Calcular')
 

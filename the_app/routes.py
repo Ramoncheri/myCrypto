@@ -2,7 +2,7 @@ from the_app import app
 from the_app import api
 from flask import render_template, request, redirect, url_for
 import sqlite3
-from the_app.forms import CompraForm
+from the_app.forms import  CompraForm
 from the_app.functions import calc_fecha, select
 
 
@@ -37,8 +37,10 @@ def detalle_ops():
 
 @app.route('/operar', methods=["GET", "POST"])
 def operar():
-    #boton_calc_presionado= False
+    
     form= CompraForm(request.form)  
+    
+
 
     if request.method=='GET':
     
@@ -53,7 +55,7 @@ def operar():
                 cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
                 cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
                 fecha= calc_fecha()
-                #boton_calc_presionado= True
+                
                 return render_template('formul_compra.html', form= form, cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha)
                 
             else:
@@ -66,7 +68,7 @@ def operar():
             return redirect(url_for("operar"))
 
         else:
-            #if boton_calc_presionado== True:
+            
             conn=sqlite3.connect(app.config['BBDD'])
             c= conn.cursor()
             query= "INSERT INTO resumen(fecha, de_cripto, volumen, a_cripto, cotizacion, importe) values (?,?,?,?,?,?);"
@@ -79,10 +81,9 @@ def operar():
                 print('MOD/DEL- Error de acceso a la base de datos: {}'.format(e))
                 return 'Error de acceso a la base de datos'
             conn.close()
-            #boton_calc_presionado= False
+            
             return redirect(url_for('index'))
-            #else:
-                #return redirect(url_for("operar"))
+            
         
             
 
