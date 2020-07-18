@@ -14,7 +14,7 @@
 
     -FLASK_APP=run.py
 
-    -FLASK_ENV=cualquiera de 'development' o 'production'
+    -FLASK_ENV= 'development' o 'production'
 
 4. Crear BBDD:
 

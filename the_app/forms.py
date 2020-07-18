@@ -22,9 +22,6 @@ def valid_cantidadFrom(form, field):
 
 
 
-
-
-
 criptos = ("", "EUR", "BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
 
 class CompraForm(FlaskForm):
@@ -37,9 +34,7 @@ class CompraForm(FlaskForm):
     comprar= SubmitField('Comprar')
 
 
-    #cantidadTo= FloatField('Cantidad')
-    #fechaHora= DateTimeField('fecha')
-    #cotizacion= FloatField('Cotización')
+    
 
     
       

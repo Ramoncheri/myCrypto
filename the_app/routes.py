@@ -11,10 +11,16 @@ from the_app.functions import calc_fecha, select
 def index():
     
     d=select()
-    if len(d)==1:
-        return render_template('sin_movimientos.html')
-    else: 
-        return render_template('inicio.html', ops= d)     
+
+    if d != 'BBDD':
+        if len(d)==1:
+            return render_template('sin_movimientos.html')
+        elif isinstance (d, str) == False:
+            return render_template('inicio.html', ops= d)    
+        else:
+            return 'Error de acceso a la API: {}'.format(d)
+    else:
+        return 'Error de acceso a la base de datos' 
    
 
 @app.route('/detalle')
@@ -49,18 +55,20 @@ def operar():
     else:
         
         if request.values.get('calcular'):
-            
-            if form.validate():
-        
-                cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
-                cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
-                fecha= calc_fecha()
-                
-                return render_template('formul_compra.html', form= form, cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha)
-                
-            else:
-                return render_template('formul_compra.html', form= form)
 
+            cantidadTo= api.convert(request.values.get('criptoFrom'), request.values.get('cantidadFrom'), request.values.get('criptoTo'))
+
+            if isinstance(cantidadTo, str) == False:
+                if form.validate():
+                    cotiz= cantidadTo/float(request.values.get('cantidadFrom'))
+                    fecha= calc_fecha()
+                    
+                    return render_template('formul_compra.html', form= form, cotiz= cotiz, cantidadTo= cantidadTo, fecha=fecha)
+                
+                else:
+                    return render_template('formul_compra.html', form= form)
+            else:
+                return 'Error de acceso a la API: {}'.format(cantidadTo)
             
 
         elif request.values.get('cancelar'):
@@ -78,7 +86,7 @@ def operar():
                 c.execute(query, datos)
                 conn.commit()
             except Exception as e:
-                print('MOD/DEL- Error de acceso a la base de datos: {}'.format(e))
+                print(' Error de acceso a la base de datos: {}'.format(e))
                 return 'Error de acceso a la base de datos'
             conn.close()
             
@@ -91,14 +99,20 @@ def operar():
 def status():
     d= select()
 
-    suma_total_act= 0
-    for fila in d.items():
-        if fila[0] != 'EUR':
-            suma_total_act += fila[1]['volumen']*fila[1]['importe']
+    if d != 'BBDD':
+
+        if isinstance(d, str) == False:
+
+            suma_total_act= 0
+            for fila in d.items():
+                if fila[0] != 'EUR':
+                    suma_total_act += fila[1]['volumen']*fila[1]['importe']
     
-
-    return render_template('status.html', ops= d, suma_total_act= suma_total_act)
-
+            return render_template('status.html', ops= d, suma_total_act= suma_total_act)
+        else:
+            return 'Error de acceso a la API: {}'.format(d)
+    else:
+        return 'Error de acceso a la base de datos'
 
 
 

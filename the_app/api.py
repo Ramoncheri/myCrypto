@@ -11,13 +11,16 @@ def convert(symbol_from, amount='1', converTo='EUR'):
     
     response = requests.get(URL)
     
-
     data = response.json()
-    lista= (data['data'])
-    quote= lista['quote']
-    price= quote[converTo]['price']
+    try:
+        lista= (data['data'])
+        quote= lista['quote']
+        price= quote[converTo]['price']
 
-    return price
+        return price
+    except:
+        error = response.reason
+        return error
    
         
    
