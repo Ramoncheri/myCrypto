@@ -15,7 +15,7 @@ def compra_errors(form, field):
 def valid_cantidadFrom(form, field):
     ops= select()
     for operacion, data in ops.items():
-        if operacion != 'EUR' and form.criptoFrom.data == operacion:
+        if operacion != 'EUR' and form.criptoFrom.data == operacion or form.criptoFrom.data not in ops:
             if field.data > data['volumen']:
                 raise ValidationError('Saldo insuficiente')
 
